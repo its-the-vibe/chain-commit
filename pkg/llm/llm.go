@@ -13,11 +13,13 @@ import (
 // Generator is an interface for generating commit messages.
 type Generator interface {
 	Generate(ctx context.Context, diff string) (string, error)
+	ModelName() string
 }
 
 // LangChainGenerator is an implementation of Generator using LangChainGo.
 type LangChainGenerator struct {
-	llm llms.Model
+	llm   llms.Model
+	model string
 }
 
 // NewGenerator creates a new Generator based on the LLM_PROVIDER environment variable.
@@ -29,16 +31,21 @@ func NewGenerator() (Generator, error) {
 
 	var llm llms.Model
 	var err error
+	var model string
 
 	switch provider {
 	case "ollama":
-		model := os.Getenv("OLLAMA_MODEL")
+		model = os.Getenv("OLLAMA_MODEL")
 		if model == "" {
 			model = "llama3.2"
 		}
 		llm, err = ollama.New(ollama.WithModel(model))
 	case "gemini":
-		llm, err = googleai.New(context.Background())
+		model = os.Getenv("GEMINI_MODEL")
+		if model == "" {
+			model = "gemini-flash-latest"
+		}
+		llm, err = googleai.New(context.Background(), googleai.WithDefaultModel(model))
 	default:
 		return nil, fmt.Errorf("unsupported LLM provider: %s", provider)
 	}
@@ -47,7 +54,7 @@ func NewGenerator() (Generator, error) {
 		return nil, fmt.Errorf("failed to initialize LLM: %w", err)
 	}
 
-	return &LangChainGenerator{llm: llm}, nil
+	return &LangChainGenerator{llm: llm, model: model}, nil
 }
 
 // Generate generates a commit message from a git diff.
@@ -60,4 +67,9 @@ func (g *LangChainGenerator) Generate(ctx context.Context, diff string) (string,
 	}
 
 	return completion, nil
+}
+
+// ModelName returns the name of the model being used.
+func (g *LangChainGenerator) ModelName() string {
+	return g.model
 }

@@ -41,7 +41,7 @@ func main() {
 
 	// 4. Generate commit message
 	ctx := context.Background()
-	fmt.Println("Generating commit message...")
+	fmt.Printf("[%s] Generating commit message...\n", generator.ModelName())
 	message, err := generator.Generate(ctx, diff)
 	if err != nil {
 		log.Fatalf("Error generating commit message: %v", err)
