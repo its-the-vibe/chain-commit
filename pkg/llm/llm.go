@@ -34,7 +34,7 @@ func NewGenerator() (Generator, error) {
 	case "ollama":
 		model := os.Getenv("OLLAMA_MODEL")
 		if model == "" {
-			model = "llama3"
+			model = "llama3.2"
 		}
 		llm, err = ollama.New(ollama.WithModel(model))
 	case "gemini":
