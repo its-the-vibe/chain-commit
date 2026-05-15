@@ -1,5 +1,5 @@
 # chain-commit
-[![CI](https://github.com/jules/chain-commit/actions/workflows/ci.yaml/badge.svg)](https://github.com/jules/chain-commit/actions/workflows/ci.yaml)
+[![CI](https://github.com/its-the-vibe/chain-commit/actions/workflows/ci.yaml/badge.svg)](https://github.com/its-the-vibe/chain-commit/actions/workflows/ci.yaml)
 
 A Go CLI that reads the staged diff, asks AI for a commit message via LangChainGo, and commits.
 
