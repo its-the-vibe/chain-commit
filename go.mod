@@ -2,7 +2,7 @@ module github.com/jules/chain-commit
 
 go 1.27.1
 
-require github.com/tmc/langchaingo v0.1.14
+require github.com/tmc/langchaingo v0.1.15
 
 require (
 	cloud.google.com/go v0.116.0 // indirect
