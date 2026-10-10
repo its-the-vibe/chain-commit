@@ -1,6 +1,6 @@
 module github.com/jules/chain-commit
 
-go 1.27.1
+go 1.27.2
 
 require github.com/tmc/langchaingo v0.1.15
 
