@@ -12,7 +12,7 @@ A Go CLI that reads the staged diff, asks AI for a commit message via LangChainG
 ## Installation
 
 ```bash
-git clone https://github.com/jules/chain-commit.git
+git clone https://github.com/its-the-vibe/chain-commit.git
 cd chain-commit
 make build
 # Optional: install to your GOPATH
